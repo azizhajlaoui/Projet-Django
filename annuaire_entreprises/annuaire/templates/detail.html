@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Détails - {{ entreprise.nom }}{% endblock %}
+
+{% block content %}
+<h2>{{ entreprise.nom }}</h2>
+<p><strong>Secteur :</strong> {{ entreprise.secteur }}</p>
+<p><strong>Description :</strong> {{ entreprise.description }}</p>
+<p><strong>Email :</strong> {{ entreprise.email }}</p>
+<p><strong>Téléphone :</strong> {{ entreprise.telephone }}</p>
+<p><strong>Adresse :</strong> {{ entreprise.adresse }}</p>
+<p><strong>Site Web :</strong> <a href="{{ entreprise.site_web }}" target="_blank">{{ entreprise.site_web }}</a></p>
+<p><strong>Date d'ajout :</strong> {{ entreprise.date_creation }}</p>
+
+<a href="{% url 'modifier_entreprise' entreprise.id %}" class="btn btn-warning">Modifier</a>
+<a href="{% url 'supprimer_entreprise' entreprise.id %}" class="btn btn-danger">Supprimer</a>
+<a href="{% url 'liste_entreprises' %}" class="btn btn-secondary">Retour à la liste</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Accueil - Annuaire{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Bienvenue sur l’Annuaire des Entreprises</h1>
+<p class="text-center">Recherchez et gérez vos entreprises facilement.</p>
+<div class="text-center">
+    <a href="{% url 'liste_entreprises' %}" class="btn btn-primary">Voir les entreprises</a>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ entreprise|default:"Ajouter une entreprise" }}{% endblock %}
+
+{% block content %}
+<h2>{{ entreprise|default:"Ajouter une entreprise" }}</h2>
+
+<form method="POST" class="mt-3">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.as_p }}
+    </div>
+    <button type="submit" class="btn btn-success">Enregistrer</button>
+    <a href="{% url 'liste_entreprises' %}" class="btn btn-secondary">Annuler</a>
+</form>
+{% endblock %}

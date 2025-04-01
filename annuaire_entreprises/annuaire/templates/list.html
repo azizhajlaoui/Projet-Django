@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Liste des Entreprises{% endblock %}
+
+{% block content %}
+<h2>Liste des Entreprises</h2>
+
+<form method="GET" class="mb-3">
+    <input type="text" name="q" placeholder="Rechercher une entreprise..." class="form-control">
+</form>
+
+<ul class="list-group">
+    {% for entreprise in entreprises %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="{% url 'details_entreprise' entreprise.id %}">{{ entreprise.nom }}</a>
+        <div>
+            <a href="{% url 'modifier_entreprise' entreprise.id %}" class="btn btn-warning btn-sm">Modifier</a>
+            <a href="{% url 'supprimer_entreprise' entreprise.id %}" class="btn btn-danger btn-sm">Supprimer</a>
+        </div>
+    </li>
+    {% empty %}
+    <p>Aucune entreprise enregistrée.</p>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'ajouter_entreprise' %}" class="btn btn-success mt-3">Ajouter une entreprise</a>
+{% endblock %}
