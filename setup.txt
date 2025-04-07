@@ -5,3 +5,5 @@ django-admin startproject annuaire_entreprises
 python manage.py startapp annuaire
 
 user azizs password aziz2001
+
+python manage.py runserver   
