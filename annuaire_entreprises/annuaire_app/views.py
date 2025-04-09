@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 
-# Page d'accueil
+@login_required
 def home(request):
     return render(request, 'home.html')
 
@@ -58,7 +58,7 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('home')  # change to your homepage URL name
+            return redirect('/')  # change to your homepage URL name
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})

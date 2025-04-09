@@ -4,6 +4,9 @@ venv\Scripts\activate
 django-admin startproject annuaire_entreprises
 python manage.py startapp annuaire
 
-user azizs password aziz2001
+admin :user azizs password aziz2001
 
+-------------------startup-------------
+Supprime les anciens fichiers dans :  annuaire_app/migrations/
+venv\Scripts\activate 
 python manage.py runserver   

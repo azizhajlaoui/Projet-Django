@@ -5,7 +5,19 @@
 {% block content %}
 <h1 class="text-center">Bienvenue sur l’Annuaire des Entreprises</h1>
 <p class="text-center">Recherchez et gérez vos entreprises facilement.</p>
+
 <div class="text-center">
-    <a href="{% url 'liste_entreprises' %}" class="btn btn-primary">Voir les entreprises</a>
+    <a href="{% url 'liste_entreprises' %}" class="btn btn-primary m-2">Voir les entreprises</a>
+
+    {% if user.is_authenticated %}
+    <p>Connecté en tant que <strong>{{ user.username }}</strong></p>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Se déconnecter</button>
+    </form>
+    {% else %}
+    <a href="{% url 'login' %}" class="btn btn-primary">Se connecter</a>
+    {% endif %}
+
 </div>
 {% endblock %}
