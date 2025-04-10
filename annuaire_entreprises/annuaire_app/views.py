@@ -6,6 +6,7 @@ from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 @login_required
 def home(request):
@@ -34,22 +35,32 @@ def ajouter_entreprise(request):
 
 # Modifier une entreprise
 @login_required
-def modifier_entreprise(request, id,pk):
-    entreprise = get_object_or_404(Entreprise, pk=pk, owner=request.user)
-    entreprise = get_object_or_404(Entreprise, id=id)
+def modifier_entreprise(request, entreprise_id):
+    entreprise = get_object_or_404(Entreprise, id=entreprise_id)
+
+    if entreprise.owner != request.user:
+        messages.error(request, "Vous n'avez pas la permission de modifier cette entreprise.")
+        return render(request, 'annuaire_app/modifier_entreprise.html', {'form': None})
+
     if request.method == 'POST':
         form = EntrepriseForm(request.POST, instance=entreprise)
         if form.is_valid():
             form.save()
+            messages.success(request, "Entreprise mise à jour avec succès.")
             return redirect('liste_entreprises')
     else:
         form = EntrepriseForm(instance=entreprise)
-    return render(request, 'form.html', {'form': form})
+
+    return render(request, 'annuaire_app/modifier_entreprise.html', {'form': form})
 
 # Supprimer une entreprise
+@login_required
 def supprimer_entreprise(request, id):
     entreprise = get_object_or_404(Entreprise, id=id)
-    entreprise.delete()
+    if entreprise.owner != request.user:
+        messages.error(request, "Vous n'avez pas la permission de suprimer cette entreprise.")
+    else:
+        entreprise.delete()
     return redirect('liste_entreprises')
 
 def signup_view(request):
